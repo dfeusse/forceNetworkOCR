@@ -37,7 +37,7 @@ var yScale = d3.scale.linear()
 d3.json('../virus.json', function(data) {
 	console.log(data);
 
-	data.forEach(function(d) {
+	data.nodes.forEach(function(d) {
 		node = {
 			virus: d.virus,
 			virusInd: d.virusInd,
@@ -50,6 +50,11 @@ d3.json('../virus.json', function(data) {
 
 	//yScale.domain(function(d) {return d.virus})
 	yScale.domain([0, d3.max(nodes, function(d) { return d.virusInd; }) ]);
+
+	var link = svg.selectAll('.link')
+    	.data(data.links)
+    	.enter().append('line')
+    	.attr('class', 'link');
 
 	var circles = svg.selectAll('.nodes')
 		.data(nodes)
@@ -67,10 +72,10 @@ d3.json('../virus.json', function(data) {
 	    .attr("class", function(d) { return d.virus })
 	    //.attr("xlink:href", "https://github.com/favicon.ico")
 	    .attr("xlink:href", function(d) { return d.img})
-	    .attr("x", "-8px")
-	    .attr("y", "-8px")
-	    .attr("width", "26px")
-	    .attr("height", "26px");
+	    .attr("x", "-15px")
+	    .attr("y", "-13px")
+	    .attr("width", "30px")
+	    .attr("height", "30px");
 
 	function charge(d) {
 		return -20;
@@ -78,6 +83,7 @@ d3.json('../virus.json', function(data) {
 
 	var force = d3.layout.force()
 		.nodes(nodes)
+		.links(data.links)
 		.size([width, height]);
 
 	circles.call(force.drag);
@@ -96,6 +102,12 @@ d3.json('../virus.json', function(data) {
 			})
 			circles
 				.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+			link
+				.attr('x1', function(d) { return d.source.x; })
+		        .attr('y1', function(d) { return d.source.y; })
+		        .attr('x2', function(d) { return d.target.x; })
+		        .attr('y2', function(d) { return d.target.y; });
 		});
 
 	force.start();
