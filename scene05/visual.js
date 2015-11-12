@@ -1,18 +1,31 @@
 console.log('called visual.js')
 
 var margin = {top: 30, right: 30, bottom: 30, left: 50},
-	width = 800 - margin.right - margin.left,
+	width = 800 - margin.right,
 	height = 600 - margin.top - margin.bottom;
 
-var eachSection = width/7;
+var virusCentersInitial = {
+    "a": {x: -500},//, y: height/3},
+	"b": {x: width/2},//, y: height/3},
+	"c": {x: -500},//, y: height/3},
+	"d": {x: width+500},//, y: height/1.5},
+	"e": {x: width+500}//, y: height/1.5}
+};
 
 var virusCenters = {
-    "a": {x: eachSection},//, y: height/3},
-	"b": {x: eachSection*2},//, y: height/3},
-	"c": {x: eachSection*3},//, y: height/3},
-	"d": {x: eachSection*4},//, y: height/1.5},
-	"e": {x: eachSection*5},//, y: height/1.5}
-	"f": {x: eachSection*6}
+    "a": {x: width/3, y: height/3},
+	"b": {x: width/2, y: height/3},
+	"c": {x: width/1.25, y: height/3},
+	"d": {x: width/1.5, y: height/1.5},
+	"e": {x: width/5, y: height/1.5}
+};
+
+var virusCentersChange = {
+    "a": {x: width/3},//, y: height/3},
+	"b": {x: width/2},//, y: height/3},
+	"c": {x: width/1.25},//, y: height/3},
+	"d": {x: width/1.5},//, y: height/1.5},
+	"e": {x: width/5}//, y: height/1.5}
 };
 
 var virusImgs = {
@@ -35,18 +48,17 @@ var nodes = [],
 //var yScale = d3.scale.ordinal()
 //	.rangeRoundBands([height, 0]);
 var yScale = d3.scale.linear()
-	//.range([0, height-100]);
-	.range([0, height-100]);
+	.range([0, height/2]);
 
-d3.json('../virusTwo.json', function(data) {
+d3.json('../virus.json', function(data) {
 	console.log(data);
 
-	data.nodes.forEach(function(d) {
+	data.nodes.forEach(function(d,i) {
 		node = {
 			virus: d.virus,
 			virusInd: d.virusInd,
-			//img: virusImgs[d.virus],
-			img: d.virusImg,
+			img: virusImgs[d.virus],
+			virusSpace: 
 			x: Math.random() * 900,
 			y: Math.random() * 800
 		};
@@ -54,16 +66,12 @@ d3.json('../virusTwo.json', function(data) {
 	}); // end of data.forEach()
 
 	//yScale.domain(function(d) {return d.virus})
-	//yScale.domain([0, d3.max(nodes, function(d) { return d.virusInd; }) ]);
 	yScale.domain([0, d3.max(nodes, function(d) { return d.virusInd; }) ]);
-	//yScale.domain([0, 5]);
 
-/*
 	var link = svg.selectAll('.link')
     	.data(data.links)
     	.enter().append('line')
     	.attr('class', 'link');
-*/
 
 	var circles = svg.selectAll('.nodes')
 		.data(nodes)
@@ -83,8 +91,8 @@ d3.json('../virusTwo.json', function(data) {
 	    .attr("xlink:href", function(d) { return d.img})
 	    .attr("x", "-15px")
 	    .attr("y", "-13px")
-	    .attr("width", "50px")
-	    .attr("height", "50px");
+	    .attr("width", "30px")
+	    .attr("height", "30px");
 
 	function charge(d) {
 		return -20;
@@ -92,7 +100,7 @@ d3.json('../virusTwo.json', function(data) {
 
 	var force = d3.layout.force()
 		.nodes(nodes)
-		//.links(data.links)
+		.links(data.links)
 		.size([width, height]);
 
 	circles.call(force.drag);
@@ -106,21 +114,43 @@ d3.json('../virusTwo.json', function(data) {
 				//d.x = d.x + (target.x - d.x) * (damper + 0.02) * e.alpha;
 				d.x = d.x + (target.x - d.x) * (damper) * e.alpha;
 				//d.y = d.y + (60 - d.y) * (damper + 0.02) * e.alpha;
-				//d.y = i * 20;
-				d.y = yScale(d.virusInd);// - height/2;
+				d.y = d.virusInd + Math.random();
+				//d.y = yScale(d.virusInd);
 			})
 			circles
 				.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
-		/*
 			link
 				.attr('x1', function(d) { return d.source.x; })
 		        .attr('y1', function(d) { return d.source.y; })
 		        .attr('x2', function(d) { return d.target.x; })
 		        .attr('y2', function(d) { return d.target.y; });
-		*/
 		});
 
 	force.start();
+
+	setTimeout(function(){ 
+		console.log('setTimeout() called')
+		force
+			.on('tick', function(e) {
+				force.nodes().forEach(function(d,i) {
+					var target = virusCentersChange[d.virus];
+					d.x = d.x + (target.x - d.x) * (damper) * e.alpha;
+					d.y = yScale(d.virusInd);
+					
+					//d.y = d.y + (60 - d.y) * (damper + 0.02) * e.alpha;
+					// do Math.random
+					//d.y = d.y + (Math.floor(Math.random() * 60) + 1 - d.y) * (damper + 0.02) * e.alpha;
+				})
+				circles
+					.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+				link
+					.attr('x1', function(d) { return d.source.x; })
+			        .attr('y1', function(d) { return d.source.y; })
+			        .attr('x2', function(d) { return d.target.x; })
+			        .attr('y2', function(d) { return d.target.y; });
+			});
+			force.start();
+	}, 1500); // end of setTimeout()
 
 })

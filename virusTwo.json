@@ -1,0 +1,42 @@
+{
+	"nodes" : [
+		{"virus":"b", "virusInd": 4, "virusImg": "../VirusImages/0005-3519.png"},
+		{"virus":"b", "virusInd": 5, "virusImg": "../VirusImages/0005-1204.png"},
+		{"virus":"b", "virusInd": 6, "virusImg": "../VirusImages/0005-0386.png"},
+		
+		{"virus":"d", "virusInd": 1, "virusImg": "../VirusImages/0002-0332.png"},
+		{"virus":"d", "virusInd": 2, "virusImg": "../VirusImages/0002-0399.png"},
+		{"virus":"d", "virusInd": 3, "virusImg": "../VirusImages/0002-0800.png"},
+		{"virus":"d", "virusInd": 4, "virusImg": "../VirusImages/0002-2016.png"},
+		{"virus":"d", "virusInd": 5, "virusImg": "../VirusImages/0002-2211.png"},
+		{"virus":"d", "virusInd": 6, "virusImg": "../VirusImages/0002-2436.png"},
+		{"virus":"d", "virusInd": 7, "virusImg": "../VirusImages/0002-3340.png"},
+		{"virus":"d", "virusInd": 8, "virusImg": "../VirusImages/0002-3533.png"},
+		{"virus":"d", "virusInd": 9, "virusImg": "../VirusImages/0002-3657.png"},
+
+		{"virus":"c", "virusInd": 1, "virusImg": "../VirusImages/0003-0112.png"},
+		{"virus":"c", "virusInd": 2, "virusImg": "../VirusImages/0003-0148.png"},
+		{"virus":"c", "virusInd": 3, "virusImg": "../VirusImages/0003-0377.png"},
+		{"virus":"c", "virusInd": 4, "virusImg": "../VirusImages/0003-1082.png"},
+		{"virus":"c", "virusInd": 5, "virusImg": "../VirusImages/0003-1538.png"},
+		{"virus":"c", "virusInd": 6, "virusImg": "../VirusImages/0003-2567.png"},
+		{"virus":"c", "virusInd": 7, "virusImg": "../VirusImages/0003-3095.png"},
+		{"virus":"c", "virusInd": 8, "virusImg": "../VirusImages/0003-3166.png"},
+		{"virus":"c", "virusInd": 9, "virusImg": "../VirusImages/0003-3716.png"},
+
+		{"virus":"e", "virusInd": 3.5, "virusImg": "../VirusImages/0000-1175.png"},
+		{"virus":"e", "virusInd": 4.5, "virusImg": "../VirusImages/0000-1843.png"},
+		{"virus":"e", "virusInd": 5.5, "virusImg": "../VirusImages/0000-3635.png"},
+		{"virus":"e", "virusInd": 6.5, "virusImg": "../VirusImages/0000-3742.png"},
+		
+		{"virus":"f", "virusInd": 4, "virusImg": "../VirusImages/0007-2255.png"},
+		{"virus":"f", "virusInd": 5, "virusImg": "../VirusImages/0007-3156.png"},
+		{"virus":"f", "virusInd": 6, "virusImg": "../VirusImages/0007-3408.png"},
+		
+		{"virus":"a", "virusInd": 3, "virusImg": "../VirusImages/0004-0041.png"},
+		{"virus":"a", "virusInd": 4, "virusImg": "../VirusImages/0004-2970.png"},
+		{"virus":"a", "virusInd": 5, "virusImg": "../VirusImages/0004-3368.png"},
+		{"virus":"a", "virusInd": 6, "virusImg": "../VirusImages/0004-3425.png"},
+		{"virus":"a", "virusInd": 7, "virusImg": "../VirusImages/0004-3669.png"}
+	]
+}
