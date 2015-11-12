@@ -7,10 +7,18 @@ var margin = {top: 30, right: 30, bottom: 30, left: 50},
 var virusCenters = {
     "a": {x: width/3},//, y: height/3},
 	"b": {x: width/2},//, y: height/3},
-	"c": {x: width/1.5},//, y: height/3},
-	"d": {x: width/2.5},//, y: height/1.5},
+	"c": {x: width/1.25},//, y: height/3},
+	"d": {x: width/1.5},//, y: height/1.5},
 	"e": {x: width/5}//, y: height/1.5}
 };
+
+var virusImgs = {
+	"a": "../VirusImages/0000-3635.png",
+	"b": "../VirusImages/0003-0148.png",
+	"c": "../VirusImages/0006-3199.png",
+	"d": "../VirusImages/0007-3156.png",
+	"e": "../VirusImages/0005-0386.png"
+}
 
 var svg = d3.select('#visual').append('svg')
 	.attr('width', width + margin.left + margin.right)
@@ -33,6 +41,7 @@ d3.json('../virus.json', function(data) {
 		node = {
 			virus: d.virus,
 			virusInd: d.virusInd,
+			img: virusImgs[d.virus],
 			x: Math.random() * 900,
 			y: Math.random() * 800
 		};
@@ -56,11 +65,12 @@ d3.json('../virus.json', function(data) {
 	*/
 	circles.append("svg:image")
 	    .attr("class", function(d) { return d.virus })
-	    .attr("xlink:href", "https://github.com/favicon.ico")
+	    //.attr("xlink:href", "https://github.com/favicon.ico")
+	    .attr("xlink:href", function(d) { return d.img})
 	    .attr("x", "-8px")
 	    .attr("y", "-8px")
-	    .attr("width", "16px")
-	    .attr("height", "16px");
+	    .attr("width", "26px")
+	    .attr("height", "26px");
 
 	function charge(d) {
 		return -20;
