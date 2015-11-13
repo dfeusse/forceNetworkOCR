@@ -58,7 +58,6 @@ d3.json('../virus.json', function(data) {
 			virus: d.virus,
 			virusInd: d.virusInd,
 			img: virusImgs[d.virus],
-			virusSpace: 
 			x: Math.random() * 900,
 			y: Math.random() * 800
 		};

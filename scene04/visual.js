@@ -5,11 +5,11 @@ var margin = {top: 30, right: 30, bottom: 30, left: 50},
 	height = 600 - margin.top - margin.bottom;
 
 var virusCentersInitial = {
-    "a": {x: -500},//, y: height/3},
+    "a": {x: -100},//, y: height/3},
 	"b": {x: width/2},//, y: height/3},
-	"c": {x: -500},//, y: height/3},
-	"d": {x: width+500},//, y: height/1.5},
-	"e": {x: width+500}//, y: height/1.5}
+	"c": {x: -100},//, y: height/3},
+	"d": {x: width+100},//, y: height/1.5},
+	"e": {x: width+100}//, y: height/1.5}
 };
 
 var virusCenters = {
@@ -18,6 +18,14 @@ var virusCenters = {
 	"c": {x: width/1.25},//, y: height/3},
 	"d": {x: width/1.5},//, y: height/1.5},
 	"e": {x: width/5}//, y: height/1.5}
+};
+
+var virusCentersEnd = {
+    "a": {x: -1000},//, y: height/3},
+	"b": {x: width/2},//, y: height/3},
+	"c": {x: -500},//, y: height/3},
+	"d": {x: width+500},//, y: height/1.5},
+	"e": {x: width+1000}//, y: height/1.5}
 };
 
 var virusImgs = {
@@ -81,9 +89,9 @@ d3.json('threeVirus.json', function(data) {
 	    //.attr("xlink:href", "https://github.com/favicon.ico")
 	    .attr("xlink:href", function(d) { return d.img})
 	    .attr("x", "-15px")
-	    .attr("y", "-13px")
-	    .attr("width", "30px")
-	    .attr("height", "30px");
+	    .attr("y", "-20px")
+	    .attr("width", "40px")
+	    .attr("height", "40px");
 
 	function charge(d) {
 		return -20;
@@ -98,7 +106,8 @@ d3.json('threeVirus.json', function(data) {
 
 	force.gravity(-0.01)
 		.charge(charge)
-		.friction(0.95)
+		//.friction(0.95)
+		.friction(0.8)
 		.on('tick', function(e) {
 			force.nodes().forEach(function(d,i) {
 				var target = virusCentersInitial[d.virus];
@@ -126,7 +135,7 @@ d3.json('threeVirus.json', function(data) {
 		force
 			.on('tick', function(e) {
 				force.nodes().forEach(function(d,i) {
-					var target = virusCenters[d.virus];
+					var target = virusCentersEnd[d.virus];
 					d.x = d.x + (target.x - d.x) * (damper) * e.alpha;
 					//d.y = yScale(d.virusInd);
 					d.y = 50;
@@ -140,6 +149,13 @@ d3.json('threeVirus.json', function(data) {
 			        .attr('y2', function(d) { return d.target.y; });
 			});
 			force.start();
+
+			setInterval(function() {
+				force.start();
+			}, 2000);
+			
 	}, 2000); // end of setTimeout()
+
+
 
 })
